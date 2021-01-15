@@ -58,7 +58,7 @@ const help = [
     "| This is the help menu. You can see valid commands below:       |",
     "+----------------------------------------------------------------+",
     "| - bio               Shows Cristian Valero's biography          |",
-    "| - twitter           Shows Cristian Valero's twitter            |",
+    "| - twitter           Shows Cristian Valero's Twitter            |",
     "| - hello <name>      Say hello to someone                       |",
     "| - kitten            Shows you a beautiful thing                |",
     "| - clear             Clears the prompt                          |",
@@ -67,19 +67,19 @@ const help = [
 
 const commands = {
     bio: function() {
-        let bio = "Hy! My name is Cristian and I'm a software developer living at Spain.";
+        let bio = "Hi! My name is Cristian and I'm a software developer living in Spain.";
         typed_message(term, bio, 100, function() {
             finish = true;
         });
     },
     twitter: function() {
-        this.echo("Cristian Valero's twitter is [[!guib;<GREEN>;>]@titianvalero]");
+        this.echo("Cristian Valero's twitter is [[b;blue;]@titianvalero]");
     },
     help: function() {
         this.echo(help.join("\n"));
     },
     hello: function(what) {
-        this.echo('Hello, ' + what + '. Wellcome to the world of @titianvalero.');
+        this.echo('Hello, ' + what + '. Welcome to the world of @titianvalero.');
     },
     kitten: function() {
         this.echo($('<img src="https://placekitten.com/640/360">'));
