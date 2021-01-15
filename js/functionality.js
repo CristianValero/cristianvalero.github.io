@@ -81,10 +81,10 @@ const commands = {
         this.echo(messages["twitter"]);
     },
     help: function() {
-        this.echo(messages[this.help].join("\n"));
+        this.echo(messages["help"].join("\n"));
     },
     hello: function(what) {
-        this.echo(messages[hello].replaceAll("%s%", what));
+        this.echo(messages["hello"].replaceAll("%s%", what));
     },
     kitten: function() {
         this.echo($('<img src="https://placekitten.com/640/360">'));
