@@ -1,5 +1,3 @@
-$.terminal.defaults.strings["commandNotFound"] = "Oooooppppsss! Command '%s' not found. Type help :(";
-
 let anim = false;
 function typed(finish_typing) {
     return function(term, message, delay, finish) {
@@ -43,43 +41,50 @@ const typed_message = typed(function(term, message, prompt) {
     term.set_prompt(prompt);
 });
 
-const greeting = [
-    "Welcome to Cristian Valero's page!",
-    "[[b;blue;]  _____      _     _   _             ",
-    " / ____|    (_)   | | (_)            ",
-    "| |     _ __ _ ___| |_ _  __ _ _ __  ",
-    "| |    | '__| / __| __| |/ _` | '_ \\ ",
-    "| |____| |  | \\__ \\ |_| | (_| | | | |",
-    " \\_____|_|  |_|___/\\__|_|\\__,_|_| |_|]\n"
-];
+const messages = {
+    greeting: [
+        "Welcome to Cristian Valero's page!",
+        "[[b;blue;]  _____      _     _   _             ",
+        " / ____|    (_)   | | (_)            ",
+        "| |     _ __ _ ___| |_ _  __ _ _ __  ",
+        "| |    | '__| / __| __| |/ _` | '_ \\ ",
+        "| |____| |  | \\__ \\ |_| | (_| | | | |",
+        " \\_____|_|  |_|___/\\__|_|\\__,_|_| |_|]\n"
+    ],
+    help: [
+        "\n+----------------------------------------------------------------+",
+        "| This is the help menu. You can see valid commands below:       |",
+        "+----------------------------------------------------------------+",
+        "| - bio               Shows Cristian Valero's biography          |",
+        "| - twitter           Shows Cristian Valero's Twitter            |",
+        "| - hello <name>      Say hello to someone                       |",
+        "| - kitten            Shows you a beautiful thing                |",
+        "| - clear             Clears the prompt                          |",
+        "+----------------------------------------------------------------+\n"
+    ],
+    command_not_found: "Oooooppppsss! Command '%s' not found. Type help :(",
+    type_help: "|-> Type help for help. \n",
+    biography: "Hi! My name is Cristian and I'm a software developer living in Spain.",
+    twitter: "Cristian Valero's twitter is [[b;blue;]@titianvalero]",
+    hello: "Hello, %s%. Welcome to the world of @titianvalero."
+};
 
-const help = [
-    "\n+----------------------------------------------------------------+",
-    "| This is the help menu. You can see valid commands below:       |",
-    "+----------------------------------------------------------------+",
-    "| - bio               Shows Cristian Valero's biography          |",
-    "| - twitter           Shows Cristian Valero's Twitter            |",
-    "| - hello <name>      Say hello to someone                       |",
-    "| - kitten            Shows you a beautiful thing                |",
-    "| - clear             Clears the prompt                          |",
-    "+----------------------------------------------------------------+\n"
-];
+$.terminal.defaults.strings["commandNotFound"] = messages["command_not_found"];
 
 const commands = {
     bio: function() {
-        let bio = "Hi! My name is Cristian and I'm a software developer living in Spain.";
-        typed_message(term, bio, 100, function() {
+        typed_message(term, messages[biography], 100, function() {
             finish = true;
         });
     },
     twitter: function() {
-        this.echo("Cristian Valero's twitter is [[b;blue;]@titianvalero]");
+        this.echo(messages["twitter"]);
     },
     help: function() {
-        this.echo(help.join("\n"));
+        this.echo(messages[this.help].join("\n"));
     },
     hello: function(what) {
-        this.echo('Hello, ' + what + '. Welcome to the world of @titianvalero.');
+        this.echo(messages[hello].replaceAll("%s%", what));
     },
     kitten: function() {
         this.echo($('<img src="https://placekitten.com/640/360">'));
@@ -87,10 +92,10 @@ const commands = {
 };
 
 const term = $('body').terminal(commands, { 
-    greetings: greeting.join("\n"),
+    greetings: messages["greeting"].join("\n"),
     prompt: "[[b;cyan;]titianvalero][[b;gray;] $ ]"
 });
 
-typed_message(term, "|-> Type help for help. \n", 50, function() {
+typed_message(term, messages["type_help"], 50, function() {
     finish = true;
 });
