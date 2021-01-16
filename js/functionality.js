@@ -14,7 +14,7 @@ function typed(finish_typing) {
                 term.set_prompt(new_prompt);
                 c++;
 
-                if (c == length(message)) {
+                if ( c == length(message) ) {
                     clearInterval(interval);
                     setTimeout(function() {
                         finish_typing(term, message, prompt);
