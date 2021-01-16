@@ -60,25 +60,28 @@ const messages = {
         "| - hello <name>      Say hello to someone                       |",
         "| - kitten            Shows you a beautiful thing                |",
         "| - clear             Clears the prompt                          |",
+        "| - stats             Shows stats from Cristian's github         |",
         "+----------------------------------------------------------------+\n"
     ],
     command_not_found: "Oooooppppsss! Command '%s' not found. Type help :(",
     type_help: "|-> Type help for help. \n",
     biography: "Hi! My name is Cristian and I'm a software developer living in Spain.",
     twitter: "Cristian Valero's twitter is [[b;blue;]@titianvalero]",
-    hello: "Hello, %s%. Welcome to the world of @titianvalero."
+    hello: "Hello, %s%. Welcome to the world of @titianvalero.",
+    kitten: "Owwwwww, you typed the best command ever programed. Love kittens!"
 };
 
 $.terminal.defaults.strings["commandNotFound"] = messages["command_not_found"];
 
 const commands = {
     bio: function() {
-        typed_message(term, messages["biography"], 100, function() {
+        typed_message(term, messages["biography"], 50, function() {
             finish = true;
         });
     },
     twitter: function() {
-        this.echo(messages["twitter"]);
+        this.echo("\n" + messages["twitter"]);
+        this.echo();
     },
     help: function() {
         this.echo(messages["help"].join("\n"));
@@ -87,7 +90,13 @@ const commands = {
         this.echo(messages["hello"].replaceAll("%s%", what));
     },
     kitten: function() {
-        this.echo($('<img src="https://placekitten.com/640/360">'));
+        typed_message(term, messages["kitten"], 50, function() {
+            finish = true;
+            term.echo($('<br><img src="https://placekitten.com/640/360"><br>'));
+        });
+    },
+    stats: function() {
+        this.echo($('<br><img src="https://github-readme-stats.vercel.app/api?username=CristianValero&show_icons=true&theme=radical"><br>'));
     }
 };
 
@@ -99,3 +108,5 @@ const term = $('body').terminal(commands, {
 typed_message(term, messages["type_help"], 50, function() {
     finish = true;
 });
+
+term.echo($('<a href="https://twitter.com/titianvalero"><img src="https://img.shields.io/twitter/follow/titianvalero?logo=twitter&style=for-the-badge" alt="titianvalero"/></a> <br>'));
