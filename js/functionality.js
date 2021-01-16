@@ -73,7 +73,7 @@ $.terminal.defaults.strings["commandNotFound"] = messages["command_not_found"];
 
 const commands = {
     bio: function() {
-        typed_message(term, messages[biography], 100, function() {
+        typed_message(term, messages["biography"], 100, function() {
             finish = true;
         });
     },
